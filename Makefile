@@ -5,7 +5,7 @@ HOST = $(shell hostname -s)
 ifneq "$(MACHINE)" "$(HOST)"
 all: getstarted
 else
-all: help
+all: exercises
 endif
 
 getstarted:
@@ -13,7 +13,7 @@ getstarted:
 	@echo "  module use $(PWD)/modulefiles/"
 	@echo "  module load course/$(HOST)"
 
-help:
+exercises:
 	@echo "Each exercise has its own module, which defines the following commands"
 	@echo "  help     short description of the exercise"
 	@echo "  setup    set all the required files and links"

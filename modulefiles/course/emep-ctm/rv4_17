@@ -7,22 +7,18 @@ set famhome   ~/emep-ctm-training
 set appurl    https://github.com/metno/$appname/releases/tag/$release
 set machine   $::env(MACHINE)
 
-proc ModulesDisplay {} {
-  global appname release machine
-
-  puts stderr "\nLoads $appname version $release for $machine"
-}
-
 proc ModulesHelp { } {
   global appname appurl modulefile machine release
 
-  puts stderr "The $modulefile/$machine/$release module defines the default system paths and"
+  puts stderr "The [module-info name] module defines the default system paths and"
   puts stderr "environment variables needed to run $appname version $release on $machine.\n"
   puts stderr "Documentation on $appurl.\n"
 }
 
 module-whatis   "Open Source EMEP/MSC-W Model: version $release on $machine"
 
+setenv  SOURCE   $famhome/src
+setenv  CLONE    "git clone -b source --single-branch https://github.com/metno/$appname.git $famhome/src"
+setenv  BRANCH   "cd $famhome/src; git checkout -b $release $release"
 setenv  PROG     $famhome/bin/emep-ctm-$release
 module  load     $modulefile/$machine/make
-

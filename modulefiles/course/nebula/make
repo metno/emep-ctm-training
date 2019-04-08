@@ -7,16 +7,10 @@ set famhome   ~/emep-ctm-training
 set appname   "emep-ctm"
 set appurl    https://github.com/metno/$appname
 
-proc ModulesDisplay {} {
-  global appname release machine
-
-  puts stderr "\nLoads $appname version $release for $machine"
-}
-
 proc ModulesHelp { } {
   global appname appurl modulefile machine release
 
-  puts stderr "The $modulefile/$machine/$release module defines the default system paths and"
+  puts stderr "The [module-info name] module defines the default system paths and"
   puts stderr "environment variables needed to build $appname on $machine.\n"
   puts stderr "Documentation on $appurl.\n"
 }
