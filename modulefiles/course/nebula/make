@@ -1,0 +1,29 @@
+#%Module1.0#####################################################################
+
+set modulefile [lrange [split [module-info name] {/}] 0 0]
+set machine    [lrange [split [module-info name] {/}] 1 1]
+set release    [lrange [split [module-info name] {/}] 2 2]
+set famhome   ~/emep-ctm-training
+set appname   "emep-ctm"
+set appurl    https://github.com/metno/$appname
+
+proc ModulesDisplay {} {
+  global appname release machine
+
+  puts stderr "\nLoads $appname version $release for $machine"
+}
+
+proc ModulesHelp { } {
+  global appname appurl modulefile machine release
+
+  puts stderr "The $modulefile/$machine/$release module defines the default system paths and"
+  puts stderr "environment variables needed to build $appname on $machine.\n"
+  puts stderr "Documentation on $appurl.\n"
+}
+
+module-whatis   "Open Source EMEP/MSC-W Model: $machine building envirnoment"
+
+module  load     buildenv-intel/2018.u1-bare
+prereq           buildenv-intel/2018.u1-bare
+module  load     netCDF-HDF5/4.3.2-1.8.12-nsc1-intel-2018.u1-bare
+prereq           netCDF-HDF5/4.3.2-1.8.12-nsc1-intel-2018.u1-bare

@@ -1,0 +1,28 @@
+#%Module1.0#####################################################################
+
+set modulefile [lrange [split [module-info name] {/}] 0 0]
+set appname    [lrange [split [module-info name] {/}] 1 1]
+set release    [lrange [split [module-info name] {/}] 2 2]
+set famhome   ~/emep-ctm-training
+set appurl    https://github.com/metno/$appname/releases/tag/$release
+set machine   $::env(MACHINE)
+
+proc ModulesDisplay {} {
+  global appname release machine
+
+  puts stderr "\nLoads $appname version $release for $machine"
+}
+
+proc ModulesHelp { } {
+  global appname appurl modulefile machine release
+
+  puts stderr "The $modulefile/$machine/$release module defines the default system paths and"
+  puts stderr "environment variables needed to run $appname version $release on $machine.\n"
+  puts stderr "Documentation on $appurl.\n"
+}
+
+module-whatis   "Open Source EMEP/MSC-W Model: version $release on $machine"
+
+setenv  PROG     $famhome/bin/emep-ctm-$release
+module  load     $modulefile/$machine/make
+
