@@ -18,6 +18,7 @@ proc ModulesHelp { } {
 
 module-whatis   "Open Source EMEP/MSC-W Model: $release training course on $machine"
 
+setenv  WORK     /nobackup/forsk/$::env(USER)/$appname
 setenv  MACHINE  $machine
 setenv  COURSE   $machine/$release
 setenv  CTMTAG   $tag

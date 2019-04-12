@@ -22,3 +22,4 @@ setenv  CLONE    "git clone -b source --single-branch https://github.com/metno/$
 setenv  BRANCH   "cd $famhome/src; git checkout -b $release $release"
 setenv  PROG     $famhome/bin/emep-ctm-$release
 module  load     $modulefile/$machine/make
+setenv  DATA     /nobackup/forsk/sm_alvva/OpenSource/EMEP_MSC-W_model.rv4.17.OpenSource

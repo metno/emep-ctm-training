@@ -14,8 +14,12 @@ proc ModulesHelp { } {
   puts stderr "Documentation on $appurl.\n"
 }
 
-set  make   "make --no-print-directory -C $famhome/$exercise"
+setenv             EXDIR  $famhome/$exercise
+append-path -d /   WORK   $exercise
+
+set  make   "make --no-print-directory -C \$EXDIR"
 set-alias   help   "$make help"
 set-alias   setup  "$make setup"
 set-alias   hint   "$make hint"
 set-alias   cheat  "$make cheat"
+
