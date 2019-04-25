@@ -12,8 +12,10 @@ getstarted:
 	@echo "Load the HPC environment module with the following commands"
 	@echo "  module use ~/emep-ctm-training/modulefiles/"
 	@echo "  module load course/$(HOST)"
+	@echo
 	@echo "For the next steps type"
 	@echo "  make"
+	@echo "and follow the instructions"
 
 exercises:
 	@echo "Each exercise has its own module, which defines the following commands"
@@ -27,6 +29,8 @@ exercises:
 	@echo
 	@echo "Load the first exercise with"
 	@echo "  module load course/exercise/make_and_run"
+	@echo
+	@echo "Use the help and hint commands to progess trough the exercise"
 
 clean:
 	git clean -fXd

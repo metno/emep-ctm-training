@@ -13,4 +13,6 @@ git clone --single-branch https://github.com/metno/emep-ctm-training.git
 # start the curse
 cd ~/emep-ctm-training/
 make
+
+# type the commands as instructed
 ```

@@ -6,7 +6,7 @@ set release    [lrange [split [module-info name] {/}] 2 2]
 set famhome   ~/emep-ctm-training
 set appname   "emep-ctm-training"
 set appurl    https://github.com/metno/$appname
-set tag       rv4_17
+set tag       rv4_32
 
 proc ModulesHelp { } {
   global appname appurl modulefile machine release

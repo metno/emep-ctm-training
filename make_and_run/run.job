@@ -4,12 +4,11 @@
 #SBATCH -o run.out
 #SBATCH -e run.err
 
-
 if [[ -n $SLURM_JOBID ]]; then
   # we are on a compute node: run the model
   cd ~/emep-ctm-training/make_and_run/work
   ln -sf ~/emep-ctm-training/make_and_run/config_emep.nml
-  mpprun ~/emep-ctm-training/bin/emep-ctm-rv4_17
+  mpprun ~/emep-ctm-training/bin/emep-ctm-rv4_32
 else
   # we are on a logging node: submit the job to the queue
   cd ~/emep-ctm-training/make_and_run/

@@ -3,6 +3,7 @@ include ../Makefile
 help:
 	@echo "Compile the model and run for a few time steps"
 	@echo "  - get the source code for $(CTMTAG)"
+	@echo "  - adapt the $(CTMTAG) makefile for ifortran"
 	@echo "  - compile the model and copy the binary to $(PROG)" 
 	@echo "  - change the configuration to run for 3 hours" 
 	@echo "  - reduce the queue walltime to 15 minutes on the job script"

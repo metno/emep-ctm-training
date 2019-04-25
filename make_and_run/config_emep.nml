@@ -29,7 +29,7 @@
   LandCoverInputs%Do3seDefs = 'DataDir/Inputs_DO3SE.csv',
   LandCoverInputs%MapFile   = 'DataDir/Landuse_PS_5km_LC.nc',
                               'DataDir/glc2000xCLMf18.nc',
-  YieldModifications    = 'VBS', 
+  YieldModifications    = 'VBS-T10',
   PBL%ZiMIN             =  50.0,
 !------------------------------
   USES%testname         = 'EMEPSTD',
@@ -56,19 +56,22 @@
   INERIS_SNAP1          = F,
   INERIS_SNAP2          = F,
 !------------------------------
-  EmisDir               = 'DataDir/EMEP01',
-  emis_inputlist(1)%name= 'EmisDir/GNFRemis_EMEP01_YYYY.nc', ! fractions emiss format
-! One can either include or exclude, not both, as follows
-! emis_inputlist(1)%incl(1:) = 'EU15', ! example take only countries from the 'EUMACC2' list
-! emis_inputlist(2)%name     = 'EmisDir/Emis_GLOB_05.nc', !example of Fractions type
+  emis_inputlist(1)%name= 'DataDir/GNFRemis_EMEP01_YYYY.nc', ! fractions emiss format
   emis_inputlist(2)%name= 'DataDir/OceanicEmissions_GEIA.nc',
   emis_inputlist(2)%type= 'DMS',
-  emis_inputlist(3)%name= 'DataDir/FMIGlobShip2015mon.nc',
-  emis_inputlist(3)%type= 'Special_ShipEmis',
   EMIS_OUT              = F,          ! Output emissions in separate files (memory demanding)
 !------------------------------
+! emissions new format
+  Emis_sourceFiles(1)%filename = 'DataDir/FMI_Ship_Emis2015.nc',
+! EC split into EC_f_FFUEL_new/EC_f_FFUEL_age
+  Emis_sourceFiles(1)%source(1)%varname='EC',
+  Emis_sourceFiles(1)%source(1)%species='EC_f_FFUEL_new',
+  Emis_sourceFiles(1)%source(1)%factor=0.8, !80% as new
+  Emis_sourceFiles(1)%source(2)%varname='EC',
+  Emis_sourceFiles(1)%source(2)%species='EC_f_FFUEL_age',
+  Emis_sourceFiles(1)%source(2)%factor=0.2, !20% as age
+!------------------------------
   SELECT_LEVELS_HOURLY  = F,          ! hourly output flag for 3DPROFILES
-  FORECAST              = F,
   USES%ASH               = T,          ! Ash from historical Volcanic Eruptions
   ANALYSIS              = F,          ! EXPERIMENTAL: 3DVar data assimilation
   USES%AOD               = F,          ! Used for FORECASTs usually
