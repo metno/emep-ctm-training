@@ -25,7 +25,7 @@ hint:
 	@echo "  make -j6 -C $(SOURCE) PROG=$(PROG)"
 cheat:
 	make -j6 -C $(SOURCE) PROG=$(PROG)
-else ifeq ($(wildcard $(WORK)),)
+else ifeq ($(wildcard $(EXDIR)/work),)
 hint:
 	@echo "Create a directory on the work/scratch section of $(MACHINE)"
 	@echo "  mkdir -p $(WORK)"
@@ -36,7 +36,7 @@ hint:
 	@echo "... or just use the setup command"
 	@echo "  setup"
 cheat: setup
-else
+else ifeq ($(wildcard $(WORK)/Timing.out),)
 hint:
 	@echo "Modify the follwoing lines on the configuration file"
 	@echo "  $(EXDIR)/config_emep.nml"
@@ -70,6 +70,21 @@ cheat:
 	sed -i 's:\.\./input:$(DATA)/input:'  $(EXDIR)/config_emep.nml
 	sed -i 's:\.\./meteo:$(DATA)/meteo:'  $(EXDIR)/config_emep.nml
 	$(EXDIR)/run.job && tail -F $(EXDIR)/run.out
+else
+hint:
+	@echo "Contratulations you completed this exercise!"
+	@echo "  check the your run output at $(EXDIR)/work"
+	@echo
+	@echo "Take a minute and answer the followup questions"
+	@echo "- How would you get a different release/version of model?"
+	@echo "- How would you compile a different release/version?"
+	@echo "- What do you need to change to run a different release/version?"
+	@echo
+	@echo "... and continue with the next exercise"
+	@echo
+	@echo "List the exercises with"
+	@echo "  module avail course/exercise"
+cheat: hint
 endif
 
 setup:
