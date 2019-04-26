@@ -1,10 +1,10 @@
 &INPUT_PARA
   GRID      = 'MACC14',
   iyr_trend = 2015,
-  runlabel1 = 'ICBC',
+  runlabel1 = 'PTFF',
   runlabel2 = 'EMEPCourse2019',
-  startdate = 2017,06,01,00,
-  enddate   = 2017,06,19,24,
+  startdate = 2017,10,01,00,
+  enddate   = 2017,10,31,21,
 &end
 &Machine_config
   DataPath(1) = '/nobackup/forsk/sm_alvva/OpenSource/EMEP_MSC-W_model.rv4.32.OpenSource/input',
@@ -106,18 +106,18 @@
   MODE_READ = 'NHOUR',        ! every NHOURREAD
 ! MODE_READ = 'START',        ! at the start of run
 ! MODE_READ = 'RESTART',      ! at the start of run, if files are found
-! MODE_SAVE = 'NONE',         ! do nothing
+  MODE_SAVE = 'NONE',         ! do nothing
 ! MODE_SAVE = 'NHOUR',        ! every NHOURSAVE
-  MODE_SAVE = 'END',          ! at end of run
+! MODE_SAVE = 'END',          ! at end of run
 ! MODE_SAVE = 'OUTDATE',      ! every OUTDATE(1:OUTDATE_NDUMP)
   NHOURREAD = 3,              ! hours between reads. Fraction of 24
   NHOURSAVE = 3,              ! hours between saves. Fraction of 24
 !-------- File name templates for Nest I/O
-  template_read_3D = 'DataDir/ffire_pt2017/IRA00_YYYYMMDD.nc',
-  template_read_BC = 'DataDir/ffire_pt2017/hYYYYMMDD00_raqbc_d00.nc',
-  template_write   = 'DataDir/ffire_pt2017/PTIC_YYYYMMDD.nc',
+  template_read_3D = 'DataDir/ffire_pt2017/PTBC_YYYYMMDD.nc',
+  template_read_BC = 'DataDir/ffire_pt2017/PTBC_YYYYMMDD.nc',
+  template_write   = 'EMEP_OUT.nc',
 !-------- Sub domain for write modes
-! out_DOMAIN     = 70,130,40,120,
+  out_DOMAIN     = 70,130,40,120,
 &end
 &ExternalBICs_config
   USE_EXTERNAL_BIC     = T,
@@ -168,8 +168,8 @@ OutputConcs=
 &end
 &OutputSize_config
 !restrict size of output files. (Sizes defined with respect to fulldomain)
-   fullrun_DOMAIN =  70,130,40,120,
-   month_DOMAIN   =  70,130,40,120,
-   day_DOMAIN     =  70,130,40,120,
-   hour_DOMAIN    =  70,130,40,120,
+!  fullrun_DOMAIN =  70,130,40,120,
+!  month_DOMAIN   =  70,130,40,120,
+!  day_DOMAIN     =  70,130,40,120,
+!  hour_DOMAIN    =  70,130,40,120,
 &end

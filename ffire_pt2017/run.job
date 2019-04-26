@@ -1,16 +1,48 @@
 #!/bin/bash
-#SBATCH --nodes=2 --ntasks-per-node=32 --time=02:00:00
 #SBATCH -J ffire_pt2017
 #SBATCH -o run%a.out
 #SBATCH -e run%a.err
-## IC/BC tasls, two at the time
-#SBATCH -a 100-103%2
+
+# JUN tasks, four at once
+##SBATCH --nodes=1 --ntasks-per-node=16 --time=00:10:00
+##SBATCH -a 0-11%4
+
+# OCT tasks, four at the one
+#SBATCH --nodes=1 --ntasks-per-node=16 --time=00:10:00
+#SBATCH -a 20-27%4
+
+# IC/BC tasks, two at the once
+##SBATCH --nodes=2 --ntasks-per-node=32 --time=00:45:00
+##SBATCH -a 100-103%2
 
 if [[ -n $SLURM_ARRAY_TASK_ID ]]; then
   # we are on a compute node: run the model
 
   # select config/run from TASK_ID
   case $SLURM_ARRAY_TASK_ID in
+    # JUN tasks
+     0)TASK=NONE_EECCA_201706;;
+     1)TASK=FINN_EECCA_201706;;
+     2)TASK=GFAS_EECCA_201706;;
+     3)TASK=GFAS1h_EECCA_201706;;
+     4)TASK=NONE_MACC14_201706a;;
+     5)TASK=NONE_MACC14_201706b;;
+     6)TASK=FINN_MACC14_201706a;;
+     7)TASK=FINN_MACC14_201706b;;
+     8)TASK=GFAS_MACC14_201706a;;
+     9)TASK=GFAS_MACC14_201706b;;
+    10)TASK=GFAS1h_MACC14_201706a;;
+    11)TASK=GFAS1h_MACC14_201706b;;
+    # OCT tasks
+    20)TASK=NONE_EECCA_201710;;
+    21)TASK=FINN_EECCA_201710;;
+    22)TASK=GFAS_EECCA_201710;;
+    23)TASK=GFAS1h_EECCA_201710;;
+    24)TASK=NONE_MACC14_201710;;
+    25)TASK=FINN_MACC14_201710;;
+    26)TASK=GFAS_MACC14_201710;;
+    27)TASK=GFAS1h_MACC14_201710;;
+    # IC/BC tasks
     100)TASK=ICBC_201706a;; # BC JUN 01-19
     101)TASK=ICBC_201706b;; # IC JUN 20
     102)TASK=ICBC_201706c;; # BC JUN 20-30

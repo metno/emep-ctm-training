@@ -96,7 +96,7 @@
 &Fire_config
   BBMAP = 'FINN',   ! FINN or GFAS
   need_poll = F,
-  FINN_PATTERN='DataDir/ffire_pt2017/ForestFire_Emis_v15_YYYY.nc',
+  FINN_PATTERN='DataDir/ffire_pt2017/ForestFire_Emis_v16_YYYY.nc',
   GFAS_PATTERN='DataDir/ffire_pt2017/GFAS12_ForestFireEmis_YYYY.nc',
 ! GFAS_PATTERN='DataDir/ffire_pt2017/GFAS1h_ForestFireEmis_YYYYMM.nc',MODE='H',
 &end
