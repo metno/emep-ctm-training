@@ -101,11 +101,11 @@
   MODE_READ = 'NONE',         ! do nothing
 ! MODE_READ = 'NHOUR',        ! every NHOURREAD
 ! MODE_READ = 'START',        ! at the start of run
-! MODE_READ = 'FORECAST',     ! at the start of run, if files are found
+! MODE_READ = 'RESTART',      ! at the start of run, if files are found
   MODE_SAVE = 'NONE',         ! do nothing
 ! MODE_SAVE = 'NHOUR',        ! every NHOURSAVE
 ! MODE_SAVE = 'END',          ! at end of run
-! MODE_SAVE = 'FORECAST',     ! every OUTDATE(1:FORECAST_NDUMP)
+! MODE_SAVE = 'OUTDATE',      ! every OUTDATE(1:OUTDATE_NDUMP)
 ! NHOURREAD = 1,              ! hours between reads. Fraction of 24
 ! NHOURSAVE = 3,              ! hours between saves. Fraction of 24
 !-------- File name templates for Nest I/O
@@ -113,10 +113,7 @@
   template_read_BC = 'EMEP_IN.nc',            ! for each of the IO IC/BC files,
   template_write   = 'EMEP_OUT.nc',           ! if needed.
 !-------- Sub domain for write modes
-! istart =  60,   ! default RUNDOMAIN(1)+1
-! jstart =  11,   ! default RUNDOMAIN(3)+1
-! iend   = 107,   ! default RUNDOMAIN(2)-1
-! jend   =  58,   ! default RUNDOMAIN(4)-1
+! out_DOMAIN     = 70,130,40,120,             ! istart,iend,jstart,jend
 &end
 &ExternalBICs_config
   USE_EXTERNAL_BIC  = F,
