@@ -1,0 +1,175 @@
+&INPUT_PARA
+  GRID      = 'MACC14',
+  iyr_trend = 2015,
+  runlabel1 = 'ICBC',
+  runlabel2 = 'EMEPCourse2019',
+  startdate = 2017,06,01,00,
+  enddate   = 2017,06,19,21,
+&end
+&Machine_config
+  DataPath(1) = '/nobackup/forsk/sm_alvva/OpenSource/EMEP_MSC-W_model.rv4.32.OpenSource/input',
+&end
+&ModelConstants_config
+  meteo                 = '/nobackup/forsk/sm_alvva/OpenSource/EMEP_MSC-W_model.rv4.32.OpenSource/meteoYYYY/GRID/meteoYYYYMMDD.nc',
+  RUNDOMAIN             = 50,150,0,160,
+  DegreeDayFactorsFile  = 'MetDir/DegreeDayFactors.nc',
+  EmisHeightsFile       = 'DataDir/EmisHeights.txt',
+  SplitDefaultFile      = 'DataDir/emissplit.defaults.POLL',
+  SplitSpecialsFile     = 'DataDir/emissplit.specials.POLL',
+  MonthlyFacFile        = 'DataDir/MonthlyFac.POLL',
+  DailyFacFile          = 'DataDir/DailyFac.POLL',
+  HourlyFacFile         = 'DataDir/HourlyFacs.INERIS',
+  EMEP_EuroBVOCFile     = 'DataDir/EMEP_EuroBVOC.nc',
+  DustFile              = 'DataDir/Dust.nc',
+!------------------------------
+  EXP_NAME              = 'EMEPSTD',
+  MY_OUTPUTS            = 'EMEPSTD',
+!------------------------------
+  EmBio%GlobBvocMethod  = 'GLC-CLM', ! default for GLOBAL runs, not used for Europe
+  EmBio%CLF             =  0.59,     ! 1/1.7 for CLM
+  LandCoverInputs%LandDefs  = 'DataDir/Inputs_LandDefs.csv',
+  LandCoverInputs%Do3seDefs = 'DataDir/Inputs_DO3SE.csv',
+  LandCoverInputs%MapFile   = 'DataDir/Landuse_PS_5km_LC.nc',
+                              'DataDir/glc2000xCLMf18.nc',
+  YieldModifications    = 'VBS-T10',
+  PBL%ZiMIN             =  50.0,
+!------------------------------
+  USES%testname         = 'EMEPSTD',
+  USES%FOREST_FIRES     = F,
+  USES%EMISSTACKS       = F,         ! Reads PointSources file
+  USES%DEGREEDAY_FACTORS = T,
+  USES%PlumeMethod      = 'PVDI',    ! default PVDI, possible: NILU, ASMI, PVDI
+  USES%PFT_MAPS         = F,         ! PFT LAI tests
+!------------------------------
+  USES%SOILWATER         = T,          ! Uses SMI from meteo data
+  USES%CONVECTION        = F,
+  USES%SEASALT           = T,
+  USES%AIRCRAFT_EMIS     = T,          ! Needs global file, see manual
+  USES%LIGHTNING_EMIS    = T,
+!------------------------------
+  USES%EURO_SOILNOX      = T,          ! diff for global + Euro runs
+  EURO_SOILNOX_DEPSCALE = 1.0,        ! Scale, default 1  (see ModelConstants_ml)
+  USES%GLOBAL_SOILNOX    = F,          ! diff for global + Euro runs
+!------------------------------
+  USES%POLLEN            = F,
+  USES%ROADDUST          = T,
+  USES%DUST              = T,
+  NETCDF_DEFLATE_LEVEL  = 4,          ! 1-9 GZIP compress, 0 no compress, -1 netcdf3
+  INERIS_SNAP1          = F,
+  INERIS_SNAP2          = F,
+!------------------------------
+  emis_inputlist(1)%name= 'DataDir/GNFRemis_EMEP01_2015.nc', ! fractions emiss format
+  emis_inputlist(2)%name= 'DataDir/OceanicEmissions_GEIA.nc',
+  emis_inputlist(2)%type= 'DMS',
+  EMIS_OUT              = F,          ! Output emissions in separate files (memory demanding)
+!------------------------------
+! emissions new format
+  Emis_sourceFiles(1)%filename = 'DataDir/FMI_Ship_Emis2015.nc',
+! EC split into EC_f_FFUEL_new/EC_f_FFUEL_age
+  Emis_sourceFiles(1)%source(1)%varname='EC',
+  Emis_sourceFiles(1)%source(1)%species='EC_f_FFUEL_new',
+  Emis_sourceFiles(1)%source(1)%factor=0.8, !80% as new
+  Emis_sourceFiles(1)%source(2)%varname='EC',
+  Emis_sourceFiles(1)%source(2)%species='EC_f_FFUEL_age',
+  Emis_sourceFiles(1)%source(2)%factor=0.2, !20% as age
+!------------------------------
+  SELECT_LEVELS_HOURLY  = F,          ! hourly output flag for 3DPROFILES
+  USES%ASH               = T,          ! Ash from historical Volcanic Eruptions
+  ANALYSIS              = F,          ! EXPERIMENTAL: 3DVar data assimilation
+  USES%AOD               = F,          ! Used for FORECASTs usually
+  BGND_CH4              = -1,         ! Reset CH4 (use ppb). (Use -1 for defaults)
+  SKIP_RCT              = -1,         ! Will zero-out some rct, for tests. (Use -1 for defaults)
+!--- 'fake' vegetation for ozone POD calculations
+  FLUX_VEGS = 'IAM_CR','IAM_DF','IAM_MF',
+  FLUX_IGNORE = 'W', 'D', 'DE', 'ICE', 'BARE'   ! Ignore these for FLUX calcs.
+&end
+&ColumnSource_config
+!------------------------------
+! volcanic emissions from passive degassing and historical eruptions
+!------------------------------
+  flocdef='DataDir/columnsource_location.csv',
+  femsdef='DataDir/columnsource_emission.csv',
+  need_topo=T, ! stop simulation if topo_nc not found
+  NMAX_LOC=-1, ! estimate from lines in flocdef
+  NMAX_EMS=-1, ! estiamte from lines in femsdef
+&end
+&Fire_config
+  BBMAP = 'FINN',   ! FINN or GFAS
+  need_poll = F,
+  FINN_PATTERN='DataDir/ffire_pt2017/ForestFire_Emis_v15_YYYY.nc',
+  GFAS_PATTERN='DataDir/ffire_pt2017/GFAS12_ForestFireEmis_YYYY.nc',
+! GFAS_PATTERN='DataDir/ffire_pt2017/GFAS1h_ForestFireEmis_YYYYMM.nc',MODE='H',
+&end
+&Nest_config
+!-------- Read/Write MODEs
+! MODE_READ = 'NONE',         ! do nothing
+  MODE_READ = 'NHOUR',        ! every NHOURREAD
+! MODE_READ = 'START',        ! at the start of run
+! MODE_READ = 'RESTART',      ! at the start of run, if files are found
+! MODE_SAVE = 'NONE',         ! do nothing
+  MODE_SAVE = 'NHOUR',        ! every NHOURSAVE
+! MODE_SAVE = 'END',          ! at end of run
+! MODE_SAVE = 'OUTDATE',      ! every OUTDATE(1:OUTDATE_NDUMP)
+  NHOURREAD = 3,              ! hours between reads. Fraction of 24
+  NHOURSAVE = 3,              ! hours between saves. Fraction of 24
+!-------- File name templates for Nest I/O
+  template_read_3D = 'DataDir/ffire_pt2017/IRA00_YYYYMMDD.nc',
+  template_read_BC = 'DataDir/ffire_pt2017/hYYYYMMDD00_raqbc_d00.nc',
+  template_write   = 'DataDir/ffire_pt2017/PTBC_YYYYMMDD.nc',
+!-------- Sub domain for write modes
+  out_DOMAIN     = 70,130,40,120,
+&end
+&ExternalBICs_config
+  USE_EXTERNAL_BIC     = T,
+  EXTERNAL_BIC_NAME    = 'MACC_ENS',
+  EXTERNAL_BIC_VERSION = 'IFS_CMP_g4e2',
+  TOP_BC               = T,
+&end
+&ExternalBICs_bc
+  description='MACC_ENS','IFS_CMP_g4e2',24,
+  map_bc=
+    'O3'        ,'go3'    ,1.0,T,F,-1,
+    'CO'        ,'co'     ,1.0,T,F,-1,
+    'NO'        ,'no'     ,1.0,T,F,-1,
+    'NO2'       ,'no2'    ,1.0,T,F,-1,
+    'PAN'       ,'pan'    ,1.0,T,F,-1,
+    'HNO3'      ,'hno3'   ,1.0,T,F,-1,
+    'HCHO'      ,'hcho'   ,1.0,T,F,-1,
+    'SO2'       ,'so2'    ,1.0,T,F,-1,
+    'CH4'       ,'ch4'    ,1.0,T,F,-1,
+    'C5H8'      ,'c5h8'   ,1.0,T,F,-1,
+    'C2H6'      ,'c2h6'   ,1.0,T,F,-1,
+    'SEASALT_F' ,'aermr01',0.23255814,T,F,-1,
+    'SEASALT_F' ,'aermr02',0.23255814,T,F,-1,
+    'SEASALT_C' ,'aermr03',0.23255814,T,F,-1,
+    'DUST_SAH_F','aermr04',1.0,T,F,-1,
+    'DUST_SAH_F','aermr05',1.0,T,F,-1,
+    'DUST_SAH_F','aermr06',.15,T,F,-1,
+    'DUST_SAH_C','aermr06',.35,T,F,-1,
+    'FFIRE_OM'  ,'aermr07',1.7,F,F,-1,
+    'FFIRE_OM'  ,'aermr08',1.7,F,F,-1,
+    'FFIRE_BC'  ,'aermr09',1.0,F,F,-1,
+    'FFIRE_BC'  ,'aermr10',1.0,F,F,-1,
+    'SO4'       ,'aermr11',1.0,T,F,-1,
+    'SO2'       ,'aermr12',1.0,F,F,-1,
+&end
+&OutputConcs_config
+OutputConcs=
+  'PMFINE'           ,'ug' ,'2d','AIR_CONCS','GROUP','',
+  'PM10'             ,'ug' ,'2d','AIR_CONCS','GROUP','',
+  'SURF_PM25water'   ,'ug' ,'2d','PM25water','MISC' ,'',
+  'SURF_ug_PM25_rh50','ug' ,'2d','PM25_rh50','MISC' ,'H',
+  'SURF_ug_PM10_rh50','ug' ,'2d','PM10_rh50','MISC' ,'H',
+  'PPM25_FIRE'       ,'ug' ,'2d','AIR_CONCS','GROUP','H',
+  'AOD'            ,' '  ,'550nm','AOD:GROUP','MISC','I',
+! 'EXT'            ,'1/m','550nm','EXT:GROUP','MISC','I',
+&end
+&OutputDep_config
+&end
+&OutputSize_config
+!restrict size of output files. (Sizes defined with respect to fulldomain)
+   fullrun_DOMAIN =  70,130,40,120,
+   month_DOMAIN   =  70,130,40,120,
+   day_DOMAIN     =  70,130,40,120,
+   hour_DOMAIN    =  70,130,40,120,
+&end

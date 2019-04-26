@@ -1,7 +1,8 @@
 .*.swp
 src
 */work
-
+run*.err
+run*.out
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
