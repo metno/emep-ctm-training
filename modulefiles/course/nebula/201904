@@ -23,3 +23,7 @@ setenv  MACHINE  $machine
 setenv  COURSE   $machine/$release
 setenv  CTMTAG   $tag
 module  load     $modulefile/emep-ctm/$tag
+
+set  make   "make --no-print-directory -C $famhome"
+set-alias   help   "$make help"
+

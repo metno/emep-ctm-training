@@ -1,7 +1,9 @@
 include ../Makefile
 
 help:
-	@echo "Compile the model and run for a few time steps"
+	@echo "__Compile the model and run for a few time steps__"
+	@echo
+	@echo "TODO"
 	@echo "  - get the source code for $(CTMTAG)"
 	@echo "  - adapt the $(CTMTAG) makefile for ifortran"
 	@echo "  - compile the model and copy the binary to $(PROG)" 
