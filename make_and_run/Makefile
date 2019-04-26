@@ -63,13 +63,15 @@ hint:
 	@echo "#SBATCH --nodes=2 --ntasks-per-node=32 --time=00:15:00"
 	@echo
 	@echo "Run the job script and check its progress"
-	@echo "  $(EXDIR)/run.job && tail -F $(EXDIR)/run.out"
+	@echo "  $(EXDIR)/run.job"
+	@echo "  tail -F $(EXDIR)/run.out"
 cheat:
 	sed -i 's/time=..:..:../time=00:15:00/'  $(EXDIR)/run.job
 	sed -i 's/\(enddate.*=.*....\),..,..,..,/\1,01,01,03,/'  $(EXDIR)/config_emep.nml
 	sed -i 's:\.\./input:$(DATA)/input:'  $(EXDIR)/config_emep.nml
 	sed -i 's:\.\./meteo:$(DATA)/meteo:'  $(EXDIR)/config_emep.nml
-	$(EXDIR)/run.job && tail -F $(EXDIR)/run.out
+	$(EXDIR)/run.job
+	tail -F $(EXDIR)/run.out
 else
 hint:
 	@echo "Contratulations you completed this exercise!"
