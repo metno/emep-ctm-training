@@ -36,6 +36,7 @@
 !------------------------------
   USES%testname         = 'EMEPSTD',
   USES%FOREST_FIRES     = F,
+  DEBUG%FORESTFIRE      = F,
   USES%EMISSTACKS       = F,         ! Reads PointSources file
   USES%DEGREEDAY_FACTORS = T,
   USES%PlumeMethod      = 'PVDI',    ! default PVDI, possible: NILU, ASMI, PVDI
@@ -96,6 +97,7 @@
 &Fire_config
   BBMAP = 'FINN',   ! FINN or GFAS
   need_poll = F,
+  verbose = 0,      ! 0..4, higher for more debug messages
   FINN_PATTERN='DataDir/ffire_pt2017/ForestFire_Emis_v16_YYYY.nc',
   GFAS_PATTERN='DataDir/ffire_pt2017/GFAS12_ForestFireEmis_YYYY.nc',
 ! GFAS_PATTERN='DataDir/ffire_pt2017/GFAS1h_ForestFireEmis_YYYYMM.nc',MODE='H',
