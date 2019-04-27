@@ -120,38 +120,8 @@
   out_DOMAIN     = 70,130,40,120,
 &end
 &ExternalBICs_config
-  USE_EXTERNAL_BIC     = T,
-  EXTERNAL_BIC_NAME    = 'MACC_ENS',
-  EXTERNAL_BIC_VERSION = 'IFS_CMP_g4e2',
-  TOP_BC               = T,
-&end
-&ExternalBICs_bc
-  description='MACC_ENS','IFS_CMP_g4e2',24,
-  map_bc=
-    'O3'        ,'go3'    ,1.0,T,F,-1,
-    'CO'        ,'co'     ,1.0,T,F,-1,
-    'NO'        ,'no'     ,1.0,T,F,-1,
-    'NO2'       ,'no2'    ,1.0,T,F,-1,
-    'PAN'       ,'pan'    ,1.0,T,F,-1,
-    'HNO3'      ,'hno3'   ,1.0,T,F,-1,
-    'HCHO'      ,'hcho'   ,1.0,T,F,-1,
-    'SO2'       ,'so2'    ,1.0,T,F,-1,
-    'CH4'       ,'ch4'    ,1.0,T,F,-1,
-    'C5H8'      ,'c5h8'   ,1.0,T,F,-1,
-    'C2H6'      ,'c2h6'   ,1.0,T,F,-1,
-    'SEASALT_F' ,'aermr01',0.23255814,T,F,-1,
-    'SEASALT_F' ,'aermr02',0.23255814,T,F,-1,
-    'SEASALT_C' ,'aermr03',0.23255814,T,F,-1,
-    'DUST_SAH_F','aermr04',1.0,T,F,-1,
-    'DUST_SAH_F','aermr05',1.0,T,F,-1,
-    'DUST_SAH_F','aermr06',.15,T,F,-1,
-    'DUST_SAH_C','aermr06',.35,T,F,-1,
-    'FFIRE_OM'  ,'aermr07',1.7,F,F,-1,
-    'FFIRE_OM'  ,'aermr08',1.7,F,F,-1,
-    'FFIRE_BC'  ,'aermr09',1.0,F,F,-1,
-    'FFIRE_BC'  ,'aermr10',1.0,F,F,-1,
-    'SO4'       ,'aermr11',1.0,T,F,-1,
-    'SO2'       ,'aermr12',1.0,F,F,-1,
+  USE_EXTERNAL_BIC  = F,
+  EXTERNAL_BIC_NAME = 'DUMMY',
 &end
 &OutputConcs_config
 OutputConcs=
