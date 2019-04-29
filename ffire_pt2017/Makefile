@@ -37,15 +37,16 @@ $(SOURCE)/Makefile:
 
 ifeq ($(wildcard *_*_201710.nml),)
 hint:
-	@echo "Create 4 different configuration files, unsing conf_201710.nml as a template"
+	@echo "Create 4 different configuration files on $(EXDIR),"
+	@echo "unsing $(EXDIR)/template.nml as a template"
 	@echo
 	@echo "Name your config files after the forest fire meission, meteoroloy and period"
 	@echo "e.g. NONE_EECCA_201710.nml, FINN_EECCA_201710.nml, GFAS_MACC14_201710.nml, GFAS1h_MACC14_201710.nml"
 cheat:
-	cp conf_201710.nml NONE_EECCA_201710.nml
-	cp conf_201710.nml FINN_EECCA_201710.nml
-	cp conf_201710.nml GFAS_MACC14_201710.nml
-	cp conf_201710.nml GFAS1h_MACC14_201710.nml
+	cp template.nml NONE_EECCA_201710.nml
+	cp template.nml FINN_EECCA_201710.nml
+	cp template.nml GFAS_MACC14_201710.nml
+	cp template.nml GFAS1h_MACC14_201710.nml
 else ifneq ($(shell grep '2017,10,31' *_*_201710.nml),)
 hint:
 	@echo "Set time period to 13-18 October 2017"
