@@ -1,0 +1,50 @@
+#!/bin/bash
+#SBATCH -J icbc_pt2017
+#SBATCH -o run%a.out
+#SBATCH -e run%a.err
+
+# IC/BC tasks, two at the once
+#SBATCH --nodes=2 --ntasks-per-node=32 --time=00:45:00
+#SBATCH -a 100-103%2
+
+if [[ -n $SLURM_ARRAY_TASK_ID ]]; then
+  # we are on a compute node: run the model
+
+  # select config/run from TASK_ID
+  case $SLURM_ARRAY_TASK_ID in
+    # IC/BC tasks
+    100)TASK=ICBC_201706a;; # BC JUN 01-19
+    101)TASK=ICBC_201706b;; # IC JUN 20
+    102)TASK=ICBC_201706c;; # BC JUN 20-30
+    103)TASK=ICBC_201710;;  # BC OTC 01-31
+  esac
+
+  # define config and workpath
+  NML=~/emep-ctm-training/icbc_pt2017/$TASK.nml
+  WRK=~/emep-ctm-training/icbc_pt2017/work/$TASK
+
+  # check if config exist
+  if [[ ! -f $NML ]]; then
+    echo "config not found"
+    echo $NML
+
+  # check if run already done
+  elif [[ -f $WRK/Timing.out ]]; then
+    echo "$TASK already finished"
+    ln -lh $WRK/Timing.out
+
+  # run the model
+  else
+    mkdir -p $WRK && cd $WRK
+    ln -sf $NML config_emep.nml
+    mpprun ~/emep-ctm-training/bin/emep-ctm-rv4_32
+  fi
+elif [[ -n $SLURM_JOBID ]]; then
+  # we are on a interactive session
+  echo "No interactive mode support!"
+else
+  # we are on a logging node: submit the job to the queue
+  cd ~/emep-ctm-training/icbc_pt2017/
+  sbatch run.job
+fi
+

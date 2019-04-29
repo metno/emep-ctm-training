@@ -34,6 +34,9 @@ exercises:
 	@echo "Load the first exercise with"
 	@echo "  module load course/exercise/make_and_run"
 	@echo
+	@echo "Load the 2017 IC/BC exercise with"
+	@echo "  module load course/exercise/icbc_pt2017"
+	@echo
 	@echo "Load the 2017 wildfires exercise with"
 	@echo "  module load course/exercise/ffire_pt2017"
 	@echo
