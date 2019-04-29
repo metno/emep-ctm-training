@@ -48,7 +48,7 @@ cheat:
 	cp conf_201710.nml GFAS1h_MACC14_201710.nml
 else ifneq ($(shell grep '2017,10,31' *_*_201710.nml),)
 hint:
-	@echo "Set time period to 13-18 June 2017"
+	@echo "Set time period to 13-18 October 2017"
 	@echo
 	@echo "change the following lines"
 	@echo "  startdate = 2017,10,01,00,"
@@ -170,7 +170,7 @@ hint:
 	@echo "  $(EXDIR)/run.job"
 	@echo
 	@echo "... ad see them on the queue"
-	@echo "  squeue -u\$USER -n ffire_pt2017"
+	@echo "  squeue -u\$$USER -n ffire_pt2017"
 cheat:
 	$(EXDIR)/run.job
 	watch -n15 "squeue -u$(USER) -n ffire_pt2017"

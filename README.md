@@ -10,7 +10,7 @@ ssh YOUR_HPC_USERNAME@nebula.nsc.liu.se
 # clone this repository
 git clone --single-branch https://github.com/metno/emep-ctm-training.git
 
-# start the curse
+# start the course
 cd ~/emep-ctm-training/
 make help
 
