@@ -20,7 +20,7 @@ help:
 	@echo "  - EECCA: mscw IFS run, 50x50 km PS"
 	@echo
 	@echo "TODO"
-	@echo "  - Setup 2 day run for the June wild fires"
+	@echo "  - Setup 6 day run for the October wild fires"
 	@echo "  - Chose 4 combinations forest fire emissions and meteorology" 
 	@echo "  - Run all 4 experiments at once"
 
