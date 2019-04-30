@@ -45,6 +45,6 @@ elif [[ -n $SLURM_JOBID ]]; then
 else
   # we are on a logging node: submit the job to the queue
   cd ~/emep-ctm-training/icbc_pt2017/
-  sbatch run.job
+  sbatch --reservation=emep-course run.job
 fi
 
