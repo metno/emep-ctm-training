@@ -141,7 +141,7 @@ hint:
 	@echo "change the folloing line"
 	@echo "  template_write   = 'EMEP_OUT.nc',"
 	@echo "to"
-	@echo "  template_write   = 'DataDir/ffire_pt2017/PTBC_YYYYMMDD.nc',"
+	@echo "  template_write   = 'PTBC_YYYYMMDD.nc',"
 cheat:
 	sed -i "s:.\(.*template_write.*=\).*: \1 'PTBC_YYYYMMDD.nc',:" *_201710.nml
 else ifeq ($(shell grep "^ *out_DOMAIN.*=.*70,130,40,120" *_201710.nml),)
