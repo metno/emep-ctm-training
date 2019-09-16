@@ -1,5 +1,5 @@
 # emep-ctm-training
-Open Source EMEP/MSC-W Model Training Course
+Open Source EMEP MSC-W Model Training Course
 
 ## Geting started
 
